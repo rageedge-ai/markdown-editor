@@ -1,0 +1,12 @@
+# Normalise to LF in the repository. Windows checkouts still get CRLF in the
+# working tree where the platform wants it, but the committed bytes are LF,
+# so Prettier's endOfLine:lf and cross-platform diffs both stay clean.
+* text=auto eol=lf
+
+# Vendored third-party code: keep byte-for-byte as published upstream.
+media/vendor/** -text
+
+# Binary
+*.png binary
+*.ttf binary
+*.vsix binary
