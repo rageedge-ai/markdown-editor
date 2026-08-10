@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+  Functional harness for the webview.
+
+  Mirrors the markup that MarkdownEditorProvider.html() generates, but with
+  relative paths and a stubbed acquireVsCodeApi, so the whole webview runtime
+  (CodeMirror + marked + DOMPurify + highlight.js + editor.js) can be driven
+  headlessly. Messages posted to the "host" are recorded on window.__sent.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../media/vendor/codemirror.css">
+<link rel="stylesheet" href="../media/vendor/hl-dark.css" id="hlDark">
+<link rel="stylesheet" href="../media/vendor/hl-light.css" id="hlLight" disabled>
+<link rel="stylesheet" href="../media/vendor/codicon.css">
+<link rel="stylesheet" href="../media/editor.css">
+<title>harness</title>
+</head>
+<body class="vscode-dark">
+<div class="app" id="app">
+  <div class="toolbar" id="toolbar">
+    <div class="seg" role="tablist" aria-label="View">
+      <button class="seg-btn" data-view="editor" role="tab" title="Editor only">
+        <i class="codicon codicon-edit"></i></button>
+      <button class="seg-btn active" data-view="split" role="tab" title="Split">
+        <i class="codicon codicon-split-horizontal"></i></button>
+      <button class="seg-btn" data-view="preview" role="tab" title="Preview only">
+        <i class="codicon codicon-preview"></i></button>
+    </div>
+
+    <span class="sep"></span>
+
+    <div class="fmt" id="fmt">
+      <button class="ibtn" data-fmt="bold" title="Bold (Ctrl+B)"><i class="codicon codicon-bold"></i></button>
+      <button class="ibtn" data-fmt="italic" title="Italic (Ctrl+I)"><i class="codicon codicon-italic"></i></button>
+      <button class="ibtn" data-fmt="code" title="Inline code"><i class="codicon codicon-code"></i></button>
+      <span class="sep"></span>
+      <button class="ibtn txt" data-fmt="h1" title="Heading 1">H1</button>
+      <button class="ibtn txt" data-fmt="h2" title="Heading 2">H2</button>
+      <span class="sep"></span>
+      <button class="ibtn" data-fmt="ul" title="Bullet list"><i class="codicon codicon-list-unordered"></i></button>
+      <button class="ibtn" data-fmt="link" title="Insert link"><i class="codicon codicon-link"></i></button>
+
+      <div class="pop-wrap">
+        <button class="ibtn" id="fmtMore" title="More formatting" aria-haspopup="true" aria-expanded="false">
+          <i class="codicon codicon-ellipsis"></i></button>
+        <div class="pop" id="fmtPop" role="menu">
+          <button class="pop-item" data-fmt="h3" role="menuitem"><i class="codicon codicon-text-size"></i>Heading 3</button>
+          <button class="pop-item" data-fmt="ol" role="menuitem"><i class="codicon codicon-list-ordered"></i>Numbered list</button>
+          <button class="pop-item" data-fmt="check" role="menuitem"><i class="codicon codicon-checklist"></i>Task list</button>
+          <button class="pop-item" data-fmt="quote" role="menuitem"><i class="codicon codicon-quote"></i>Blockquote</button>
+          <button class="pop-item" data-fmt="table" role="menuitem"><i class="codicon codicon-table"></i>Table</button>
+          <button class="pop-item" data-fmt="codeblock" role="menuitem"><i class="codicon codicon-file-code"></i>Code block</button>
+          <button class="pop-item" data-fmt="strike" role="menuitem"><i class="codicon codicon-remove"></i>Strikethrough</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <button class="ibtn" id="richBtn" title="Rich editing — click for raw Markdown" aria-pressed="true">
+      <i class="codicon codicon-markdown"></i></button>
+    <button class="ibtn" id="focusBtn" title="Focus mode"><i class="codicon codicon-screen-full"></i></button>
+
+    <div class="pop-wrap">
+      <button class="ibtn" id="moreBtn" title="More" aria-haspopup="true" aria-expanded="false">
+        <i class="codicon codicon-ellipsis"></i></button>
+      <div class="pop pop-right" id="morePop" role="menu">
+        <button class="pop-item" id="syncItem" role="menuitemcheckbox" aria-checked="true">
+          <i class="codicon codicon-check" id="syncCheck"></i>Sync scrolling</button>
+        <div class="pop-sep"></div>
+        <button class="pop-item" data-command="markdownCoIn.exportHtml" role="menuitem">
+          <i class="codicon codicon-file-code"></i>Export as HTML</button>
+        <button class="pop-item" data-command="markdownCoIn.exportPdf" role="menuitem">
+          <i class="codicon codicon-file-pdf"></i>Export as PDF</button>
+      </div>
+    </div>
+  </div>
+  <div class="panes" id="panes">
+    <div class="pane" id="editorPane"><div id="cm"></div></div>
+    <div class="splitter" id="splitter"></div>
+    <div class="pane" id="previewPane"><div class="preview-scroll" id="previewScroll">
+      <div class="preview-body" id="preview"></div>
+    </div></div>
+  </div>
+  <div class="status" id="status">
+    <span id="statFile"></span>
+    <span class="spacer"></span>
+    <span id="statWords">0 words</span>
+    <span id="statRead">0 min</span>
+    <span class="goal" id="goalWrap" hidden>
+      <span class="goal-bar"><i id="goalFill"></i></span>
+      <span id="goalLabel"></span>
+    </span>
+  </div>
+</div>
+
+<script>
+  window.__sent = [];
+  window.acquireVsCodeApi = () => ({
+    postMessage: (m) => window.__sent.push(m),
+    getState: () => undefined,
+    setState: () => undefined,
+  });
+</script>
+<script src="../media/vendor/codemirror.js"></script>
+<script src="../media/vendor/mode-meta.js"></script>
+<script src="../media/vendor/mode-xml.js"></script>
+<script src="../media/vendor/mode-javascript.js"></script>
+<script src="../media/vendor/mode-css.js"></script>
+<script src="../media/vendor/mode-markdown.js"></script>
+<script src="../media/vendor/addon-closebrackets.js"></script>
+<script src="../media/vendor/addon-active-line.js"></script>
+<script src="../media/vendor/marked.js"></script>
+<script src="../media/vendor/purify.js"></script>
+<script src="../media/vendor/highlight.js"></script>
+<script src="../media/editor.js"></script>
+</body>
+</html>

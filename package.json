@@ -1,0 +1,183 @@
+{
+  "name": "markdown-co-in-editor",
+  "displayName": "markdown.co.in Editor",
+  "description": "A rich Markdown editor for VS Code: live split preview, focus mode, word goals, rendered side-by-side compare with diff, and export to HTML or PDF.",
+  "version": "0.0.1",
+  "publisher": "markdown-co-in",
+  "license": "MIT",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "markdown",
+    "preview",
+    "editor",
+    "diff",
+    "writing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rageedge-ai/markdown-editor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rageedge-ai/markdown-editor/issues"
+  },
+  "homepage": "https://markdown.co.in/",
+  "galleryBanner": {
+    "color": "#0a0c12",
+    "theme": "dark"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "markdownCoIn.editor",
+        "displayName": "markdown.co.in Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.md"
+          },
+          {
+            "filenamePattern": "*.markdown"
+          }
+        ],
+        "priority": "option"
+      }
+    ],
+    "commands": [
+      {
+        "command": "markdownCoIn.openWith",
+        "title": "Open in markdown.co.in Editor",
+        "category": "Markdown"
+      },
+      {
+        "command": "markdownCoIn.exportHtml",
+        "title": "Export as HTML",
+        "category": "Markdown"
+      },
+      {
+        "command": "markdownCoIn.exportPdf",
+        "title": "Export as PDF (via print dialog)",
+        "category": "Markdown"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "markdownCoIn.openWith",
+          "when": "resourceLangId == markdown && activeCustomEditorId != markdownCoIn.editor",
+          "group": "navigation@1"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "markdownCoIn.openWith",
+          "when": "resourceExtname == .md || resourceExtname == .markdown",
+          "group": "navigation@10"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "markdownCoIn.exportHtml",
+          "when": "resourceLangId == markdown"
+        },
+        {
+          "command": "markdownCoIn.exportPdf",
+          "when": "resourceLangId == markdown"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "markdown.co.in Editor",
+      "properties": {
+        "markdownCoIn.defaultView": {
+          "type": "string",
+          "enum": [
+            "editor",
+            "split",
+            "preview"
+          ],
+          "default": "split",
+          "description": "Which view the editor opens in."
+        },
+        "markdownCoIn.previewFont": {
+          "type": "string",
+          "enum": [
+            "Lora",
+            "DM Sans",
+            "DM Mono",
+            "Editor font"
+          ],
+          "default": "Lora",
+          "description": "Typeface used for the rendered preview."
+        },
+        "markdownCoIn.wordGoal": {
+          "type": "number",
+          "default": 0,
+          "minimum": 0,
+          "description": "Word-count target shown in the status bar. 0 disables it."
+        },
+        "markdownCoIn.syncScroll": {
+          "type": "boolean",
+          "default": true,
+          "description": "Keep the editor and preview panes scrolled together."
+        },
+        "markdownCoIn.richEditing": {
+          "type": "boolean",
+          "default": true,
+          "description": "Render Markdown live while editing. The line holding the cursor shows its raw syntax; every other line renders. Turn off for plain source editing."
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "markdownCoIn.openWith",
+        "key": "ctrl+shift+m",
+        "mac": "cmd+shift+m",
+        "when": "resourceLangId == markdown"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "npm run vendor && tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "vendor": "node scripts/vendor.js",
+    "test": "node test/run.js",
+    "lint": "eslint src media scripts test",
+    "lint:fix": "eslint src media scripts test --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"media/*.js\" \"scripts/*.js\" \"test/*.js\" \"*.json\" \"*.md\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"media/*.js\""
+  },
+  "devDependencies": {
+    "@eslint/js": "9.17.0",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.2.1",
+    "esbuild": "0.24.0",
+    "eslint": "9.17.0",
+    "globals": "15.14.0",
+    "prettier": "3.4.2",
+    "typescript": "^5.4.0",
+    "typescript-eslint": "8.19.0"
+  },
+  "dependencies": {
+    "@vscode/codicons": "0.0.36",
+    "codemirror": "5.65.16",
+    "dompurify": "3.0.5",
+    "highlight.js": "11.9.0",
+    "marked": "9.1.6"
+  },
+  "author": {
+    "name": "Jitendra Balla",
+    "url": "https://rageedge.ai"
+  },
+  "qna": "https://github.com/rageedge-ai/markdown-editor/issues"
+}

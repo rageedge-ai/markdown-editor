@@ -1,0 +1,46 @@
+name: Publish Extension
+
+# Publishes on a version tag, e.g.  git tag v0.0.2 && git push --tags
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run vendor
+      - run: npm run compile
+
+      # Always produce the .vsix, so a failed publish still leaves an artifact
+      - run: npx @vscode/vsce package --out extension.vsix
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: extension-vsix
+          path: extension.vsix
+
+      # VS Code Marketplace. Secret: an Azure DevOps PAT scoped to
+      # "Marketplace > Manage" for ALL accessible organizations.
+      - name: Publish to VS Code Marketplace
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: npx @vscode/vsce publish --packagePath extension.vsix --pat "$VSCE_PAT"
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+
+      # Open VSX — how Cursor / Windsurf / VSCodium users install extensions.
+      - name: Publish to Open VSX
+        if: startsWith(github.ref, 'refs/tags/v')
+        continue-on-error: true
+        run: npx ovsx publish extension.vsix --pat "$OVSX_PAT"
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
