@@ -1,8 +1,8 @@
 {
-  "name": "markdown-editor",
+  "name": "rageedge-markdown-editor",
   "displayName": "Markdown Editor by RageEdge",
   "description": "A rich Markdown editor for VS Code: live split preview, focus mode, word goals, rendered side-by-side compare with diff, and export to HTML or PDF.",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "publisher": "rageedge-ai",
   "license": "MIT",
   "icon": "icon.png",

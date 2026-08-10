@@ -1,8 +1,8 @@
 # Markdown Editor by RageEdge
 
-[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/rageedge-ai.markdown-editor?color=c6f135&label=Marketplace)](https://marketplace.visualstudio.com/items?itemName=rageedge-ai.markdown-editor)
-[![Installs](https://img.shields.io/visual-studio-marketplace/i/rageedge-ai.markdown-editor?color=3f6212)](https://marketplace.visualstudio.com/items?itemName=rageedge-ai.markdown-editor)
-[![Rating](https://img.shields.io/visual-studio-marketplace/r/rageedge-ai.markdown-editor)](https://marketplace.visualstudio.com/items?itemName=rageedge-ai.markdown-editor&ssr=false#review-details)
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/rageedge-ai.rageedge-markdown-editor?color=c6f135&label=Marketplace)](https://marketplace.visualstudio.com/items?itemName=rageedge-ai.rageedge-markdown-editor)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/rageedge-ai.rageedge-markdown-editor?color=3f6212)](https://marketplace.visualstudio.com/items?itemName=rageedge-ai.rageedge-markdown-editor)
+[![Rating](https://img.shields.io/visual-studio-marketplace/r/rageedge-ai.rageedge-markdown-editor)](https://marketplace.visualstudio.com/items?itemName=rageedge-ai.rageedge-markdown-editor&ssr=false#review-details)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/rageedge-ai/markdown-editor/blob/main/LICENSE)
 
 Developed by **[RageEdge AI](https://rageedge.ai)** · Hosted at **[markdown.co.in](https://markdown.co.in)**
