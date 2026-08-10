@@ -23,8 +23,10 @@ const COPY = [
   ['codemirror/addon/edit/closebrackets.js', 'addon-closebrackets.js'],
   ['codemirror/addon/search/searchcursor.js', 'addon-searchcursor.js'],
   ['codemirror/addon/selection/active-line.js', 'addon-active-line.js'],
-  ['marked/marked.min.js', 'marked.js'],
-  ['dompurify/dist/purify.min.js', 'purify.js'],
+  // Readable builds, not the .min ones: a single 37k-character line reads
+  // as obfuscation to the Marketplace scanner.
+  ['marked/lib/marked.umd.js', 'marked.js'],
+  ['dompurify/dist/purify.js', 'purify.js'],
   // VS Code's official icon font. Using emoji or HTML entities instead is the
   // clearest visual tell of a non-native extension.
   ['@vscode/codicons/dist/codicon.css', 'codicon.css'],
@@ -57,7 +59,9 @@ if (fs.existsSync(hljs)) {
     },
     bundle: true,
     format: 'iife',
-    minify: true,
+    // Not minified: a 37k-character single line reads as obfuscated code to
+    // the Marketplace scanner, which rejects the package as suspicious.
+    minify: false,
     target: 'es2020',
     outfile: path.join(OUT, 'highlight.js'),
   });
