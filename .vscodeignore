@@ -13,3 +13,4 @@ SAMPLE.md
 eslint.config.js
 .prettierrc.json
 .prettierignore
+.gitattributes

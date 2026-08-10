@@ -103,7 +103,7 @@ Useful when you are away from your own machine, or want to send someone a render
 - **Hosted at:** [markdown.co.in](https://markdown.co.in)
 - **Source:** [github.com/rageedge-ai/markdown-editor](https://github.com/rageedge-ai/markdown-editor)
 
-Issues and feature requests are welcome on the [issue tracker](https://github.com/rageedge-ai/markdown-editor/issues).
+Issues and feature requests are welcome on the [issue tracker](https://github.com/rageedge-ai/markdown-editor/issues), or email [support@rageedge.ai](mailto:support@rageedge.ai).
 
 Built on [CodeMirror](https://codemirror.net/5/), [marked](https://marked.js.org/), [DOMPurify](https://github.com/cure53/DOMPurify), [highlight.js](https://highlightjs.org/) and [Codicons](https://github.com/microsoft/vscode-codicons).
 

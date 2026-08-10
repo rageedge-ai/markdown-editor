@@ -25,7 +25,8 @@
     "url": "https://github.com/rageedge-ai/markdown-editor.git"
   },
   "bugs": {
-    "url": "https://github.com/rageedge-ai/markdown-editor/issues"
+    "url": "https://github.com/rageedge-ai/markdown-editor/issues",
+    "email": "support@rageedge.ai"
   },
   "homepage": "https://markdown.co.in/",
   "galleryBanner": {
@@ -177,7 +178,8 @@
   },
   "author": {
     "name": "Jitendra Balla",
-    "url": "https://rageedge.ai"
+    "url": "https://rageedge.ai",
+    "email": "support@rageedge.ai"
   },
   "qna": "https://github.com/rageedge-ai/markdown-editor/issues"
 }
