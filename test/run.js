@@ -541,11 +541,13 @@ const MD = [
     !/(https?:)?\/\/(cdn|fonts|unpkg|jsdelivr)/.test(doc),
   );
   ok('export has print styles', /@media print/.test(doc));
-  ok(
-    'print variant auto-opens the dialog',
-    /window\.print\(\)/.test(renderStandaloneHtml(MD, 'n', true)),
-  );
-  ok('non-print variant does not', !/window\.print\(\)/.test(doc));
+  // The exporter must never emit executable content. An earlier version
+  // injected an auto-print <script> and dropped the file into os.tmpdir()
+  // before launching it, which is structurally a dropper. Printing is the
+  // user's action now, and these assertions keep it that way.
+  ok('export contains no <script> tag', !/<script/i.test(doc));
+  ok('export never auto-invokes print', !/window\.print\(\)/.test(doc));
+  ok('export has no inline event handlers', !/\son(load|error|click)\s*=/i.test(doc));
 
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail ? 1 : 0);

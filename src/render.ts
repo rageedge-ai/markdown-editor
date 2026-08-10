@@ -206,12 +206,9 @@ export function renderBody(md: string): string {
  *
  * @param md Markdown source.
  * @param title Document title, used for `<title>`.
- * @param forPrint When true, adds a script that opens the print dialog on
- *   load. Used by the Export as PDF command, which hands off to the
- *   browser because VS Code exposes no printing API.
  * @returns A full HTML document.
  */
-export function renderStandaloneHtml(md: string, title: string, forPrint = false): string {
+export function renderStandaloneHtml(md: string, title: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -282,7 +279,6 @@ export function renderStandaloneHtml(md: string, title: string, forPrint = false
 <main>
 ${renderBody(md)}
 </main>
-${forPrint ? '<script>window.addEventListener("load", () => setTimeout(() => window.print(), 250));</script>' : ''}
 </body>
 </html>
 `;

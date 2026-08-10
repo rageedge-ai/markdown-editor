@@ -1,5 +1,4 @@
 import * as vscode from 'vscode';
-import * as os from 'os';
 import { MarkdownEditorProvider } from './markdownEditorProvider';
 import { renderStandaloneHtml } from './render';
 
@@ -64,17 +63,30 @@ export function activate(context: vscode.ExtensionContext) {
         return;
       }
       // VS Code has no print API and extensions cannot drive a headless browser
-      // without shipping one, so write the HTML and let the OS browser print it.
-      const target = vscode.Uri.joinPath(
-        vscode.Uri.file(os.tmpdir()),
-        `${titleOf(doc.uri)}-print.html`,
-      );
-      const html = renderStandaloneHtml(doc.getText(), titleOf(doc.uri), true);
+      // without shipping one, so we write print-styled HTML and let the user
+      // print it from their browser.
+      //
+      // Writing to a path the user picked, with no embedded script, is
+      // deliberate. The earlier version dropped auto-executing HTML into
+      // os.tmpdir() and launched it, which is structurally indistinguishable
+      // from a dropper and is the kind of thing an automated scanner flags.
+      const target = await vscode.window.showSaveDialog({
+        filters: { HTML: ['html'] },
+        defaultUri: withExtension(doc.uri, '.print.html'),
+        title: 'Save print-ready HTML (then print it from your browser)',
+      });
+      if (!target) {
+        return;
+      }
+      const html = renderStandaloneHtml(doc.getText(), titleOf(doc.uri));
       await vscode.workspace.fs.writeFile(target, Buffer.from(html, 'utf8'));
-      await vscode.env.openExternal(target);
-      vscode.window.showInformationMessage(
-        'Opened in your browser — use its Print dialog and choose "Save as PDF".',
+      const reveal = await vscode.window.showInformationMessage(
+        `Saved ${basename(target)}. Open it in your browser and print to PDF.`,
+        'Reveal in Explorer',
       );
+      if (reveal) {
+        await vscode.commands.executeCommand('revealFileInOS', target);
+      }
     }),
   );
 }
