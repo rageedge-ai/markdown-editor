@@ -1,10 +1,5 @@
 # Markdown Editor by RageEdge
 
-[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/rageedge-ai.rageedge-markdown-editor?color=c6f135&label=Marketplace)](https://marketplace.visualstudio.com/items?itemName=rageedge-ai.rageedge-markdown-editor)
-[![Installs](https://img.shields.io/visual-studio-marketplace/i/rageedge-ai.rageedge-markdown-editor?color=3f6212)](https://marketplace.visualstudio.com/items?itemName=rageedge-ai.rageedge-markdown-editor)
-[![Rating](https://img.shields.io/visual-studio-marketplace/r/rageedge-ai.rageedge-markdown-editor)](https://marketplace.visualstudio.com/items?itemName=rageedge-ai.rageedge-markdown-editor&ssr=false#review-details)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/rageedge-ai/markdown-editor/blob/main/LICENSE)
-
 Developed by **[RageEdge AI](https://rageedge.ai)** · Hosted at **[markdown.co.in](https://markdown.co.in)**
 
 A rich Markdown editing surface for VS Code: live split preview, focus mode, word goals, and one-click export to HTML or PDF.
@@ -103,7 +98,7 @@ Useful when you are away from your own machine, or want to send someone a render
 - **Hosted at:** [markdown.co.in](https://markdown.co.in)
 - **Source:** [github.com/rageedge-ai/markdown-editor](https://github.com/rageedge-ai/markdown-editor)
 
-Issues and feature requests are welcome on the [issue tracker](https://github.com/rageedge-ai/markdown-editor/issues), or email [support@rageedge.ai](mailto:support@rageedge.ai).
+Issues and feature requests are welcome on the [issue tracker](https://github.com/rageedge-ai/markdown-editor/issues).
 
 Built on [CodeMirror](https://codemirror.net/5/), [marked](https://marked.js.org/), [DOMPurify](https://github.com/cure53/DOMPurify), [highlight.js](https://highlightjs.org/) and [Codicons](https://github.com/microsoft/vscode-codicons).
 
