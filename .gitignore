@@ -1,6 +1,7 @@
 node_modules/
 out/
 *.vsix
+!rageedge-markdown-editor-*.vsix
 msg
 # .github/
 # .vscode/
